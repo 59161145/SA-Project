@@ -1,0 +1,14 @@
+<VirtualHost *:80>
+    ServerName projectsa.com
+    ServerAlias www.projectsa.com
+    DocumentRoot /var/nfs/www/projectsa.com/html
+     <Directory /var/nfs/www/projectsa.com/html>
+        Options -Indexes +FollowSymLinks +MultiViews
+        AllowOverride All
+        Require all granted
+    </Directory>
+    ErrorLog /var/nfs/www/projectsa.com/log/error.log
+    CustomLog /var/nfs/www/projectsa.com/log/requests.log combined
+    CustomLog "| /bin/sh -c '/usr/bin/tee -a /var/nfs/www/projectsa.com/log/requests.log | /usr/bin/logger -thttpd_projectsa -plocal1.notice'" combined
+
+</VirtualHost>

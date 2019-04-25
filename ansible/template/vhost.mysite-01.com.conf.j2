@@ -1,0 +1,13 @@
+<VirtualHost *:80>
+    ServerName mysite.com
+    ServerAlias www.mysite.com
+    DocumentRoot /var/nfs/www/mysite.com/html
+    <Directory /var/nfs/www/mysite.com/html>
+        Options -Indexes +FollowSymLinks +MultiViews
+        AllowOverride All
+        Require all granted
+    </Directory>
+    ErrorLog /var/nfs/www/mysite.com/log/error.log
+    CustomLog /var/nfs/www/mysite.com/log/requests.log combined
+    CustomLog "| /bin/sh -c '/usr/bin/tee -a /var/nfs/www/mysite.com/log/requests.log | /usr/bin/logger -thttpd_mysite -plocal1.notice'" combined
+</VirtualHost>

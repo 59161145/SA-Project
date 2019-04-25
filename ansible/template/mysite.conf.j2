@@ -1,0 +1,14 @@
+upstream mysite {
+ server 192.168.100.81;
+ server 192.168.100.82;
+}
+
+server {
+  listen 80;
+  server_name mysite.com www.mysite.com;
+  proxy_set_header Host $http_host;
+  access_log syslog:server=192.168.100.11:514,facility=local7,tag=nginx,severity=info; 
+  location / {
+    proxy_pass http://mysite;
+  }
+}
